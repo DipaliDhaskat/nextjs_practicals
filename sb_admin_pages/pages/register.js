@@ -45,20 +45,9 @@ const Register = () => {
         e.preventDefault();
         signInWithPopup(auth, googleProvider)
             .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                const user = result.user;
-                router.push({
-                    pathname: '/',
-                    query: { userName: user.displayName, userEmail: user.email, userIcon: user.photoURL },
-                })
-
+                router.push('/')
             }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = GoogleAuthProvider.credentialFromError(error);
+                console.log(error.message)
             });
     };
 
@@ -66,19 +55,10 @@ const Register = () => {
         e.preventDefault();
         signInWithPopup(auth, facebookProvider)
             .then((result) => {
-                const user = result.user;
-                const credential = FacebookAuthProvider.credentialFromResult(result);
-                const accessToken = credential.accessToken;
-                router.push({
-                    pathname: '/',
-                    query: { userName: user.displayName, userEmail: user.email, userIcon: user.photoURL },
-                })
+                router.push('/')
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.email;
-                const credential = FacebookAuthProvider.credentialFromError(error);
+                console.log(error.message)
             });
     }
 
