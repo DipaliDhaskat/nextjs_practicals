@@ -18,7 +18,6 @@ function Home() {
     auth.onAuthStateChanged(user => {
       setIsSignedIn(!!user);
       setUserInfo(user);
-      !user && setFlag(1)
     })
   }, [])
 
