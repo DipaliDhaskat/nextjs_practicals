@@ -41,7 +41,13 @@ const Login = () => {
         e.preventDefault();
 
         signInWithEmailAndPassword(auth, values.email, values.password)
-            .then((res) => router.push('/'))
+            .then((res) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Log In successfully',
+                })
+                router.push('/')
+            })
             .catch((err) => Swal.fire({
                 icon: 'error',
                 title: `${err?.message}`,
@@ -58,36 +64,27 @@ const Login = () => {
         e.preventDefault();
         signInWithPopup(auth, googleProvider)
             .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const user = result.user;
-                router.push({
-                    pathname: '/',
-                    query: { userName: user.displayName, userEmail: user.email, userIcon: user.photoURL },
+                router.push('/')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Log In successfully',
                 })
-
             }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const credential = GoogleAuthProvider.credentialFromError(error);
+                console.log(error.message)
             });
     }
     const handleFacebook = async (e) => {
         e.preventDefault();
         signInWithPopup(auth, facebookProvider)
             .then((result) => {
-                const user = result.user;
-                const credential = FacebookAuthProvider.credentialFromResult(result);
-                const accessToken = credential.accessToken;
-                router.push({
-                    pathname: '/',
-                    query: { userName: user.displayName, userEmail: user.email, userIcon: user.photoURL },
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Log In successfully',
                 })
-
+                router.push('/')
             })
             .catch((error) => {
-                // Handle Errors here.
-                const errorMessage = error.message;
-                const credential = FacebookAuthProvider.credentialFromError(error);
+                console.log(error.message)
             });
 
     }

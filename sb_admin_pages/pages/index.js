@@ -1,5 +1,4 @@
 
-import { withRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -20,7 +19,6 @@ function Home() {
       setUserInfo(user);
     })
   }, [])
-
   return (
     <div >
       <div id="wrapper">
@@ -350,10 +348,10 @@ function Home() {
                         Activity Log
                       </a>
                       <div className="dropdown-divider"></div>
-                      <a className="dropdown-item" data-toggle="modal" data-target="#logoutModal">
-                        <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      <button className="dropdown-item" data-toggle="modal" data-target="#logoutModal" onClick={() => router.push("/login")}>
+                        <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" ></i>
                         Logout
-                      </a>
+                      </button>
                     </div>)
                   }
 
@@ -402,11 +400,8 @@ function Home() {
             </div>
             <div className="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div className="modal-footer">
-              <button className="btn btn-secondary" type="button" data-dismiss="modal" onClick={() => setFlag(0)}>Cancel</button>
-              <button className="btn btn-primary" href="/login" onClick={() => {
-                auth.signOut()
-                router.push('/login')
-              }}>Logout</button>
+              <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+              <button className="btn btn-primary">Logout</button>
             </div>
           </div>
         </div>
@@ -414,7 +409,7 @@ function Home() {
     </div>
   )
 }
-export default withRouter(Home)
+export default Home
 
 
 

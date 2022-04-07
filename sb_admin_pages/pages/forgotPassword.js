@@ -3,18 +3,31 @@ import {
     sendPasswordResetEmail,
 } from "firebase/auth";
 import { auth } from './store/firebaseAuth'
+import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
 
 const ForgotPassword = () => {
 
     const [email, setEmail] = useState("")
-
+    const router = useRouter();
     const handleEmail = (e) => {
         setEmail(e.target.value)
     }
     const handleReset = (e) => {
         e.preventDefault();
-        console.log(email)
-        sendPasswordResetEmail(auth, email)
+        sendPasswordResetEmail(auth, email).then((res) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Link send successfully',
+                text: "Please click on that link and reset password"
+            })
+            router.push('/login')
+        }).catch((error) => {
+            Swal.fire({
+                icon: 'success',
+                title: `${error.message}`,
+            })
+        })
     }
     return <div className="bg-gradient-primary">
         <div className="container">
